@@ -27,7 +27,7 @@ function viewmodes_preview_views_handlers() {
     'handlers' => array(
       // The name of my handler.
       'views_handler_field_node_link_viewmodes_preview' => array(
-      // The name of the handler we are extending.
+         // The name of the handler we are extending.
         'parent' => 'views_handler_field_node_link',
       ),
     ),
