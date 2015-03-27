@@ -53,7 +53,7 @@ function _viewmodes_preview_view_mode_show($node) {
       'clear_both' => array(
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#value' => '&nbsp;',
+        '#value' => '',
         '#attributes' => array(
           'style' => 'clear: both;',
         ),
