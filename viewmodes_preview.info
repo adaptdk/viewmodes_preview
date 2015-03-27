@@ -1,0 +1,8 @@
+name = View modes preview
+description = Show view modes for a given node.
+core = 7.x
+package = DSR
+project path = profiles/dsr/modules/custom
+
+files[] = includes/views/handlers/views_handler_field_node_link_viewmodes_preview.inc
+

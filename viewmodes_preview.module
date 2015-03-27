@@ -1,0 +1,74 @@
+<?php
+/**
+ * @file
+ * DSR View Mode Show
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function viewmodes_preview_menu() {
+  $items['node/%node/viewmodes-preview'] = array(
+    'title' => 'View modes',
+    'description' => 'Show a page with all active view modes for a given node.',
+    'page callback' => '_viewmodes_preview_view_mode_show',
+    'page arguments' => array(1),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Show all active view modes for a given node.
+ *
+ * @param object $node
+ *   Drupal node.
+ *
+ * @return array
+ *   Drupal render array.
+ */
+function _viewmodes_preview_view_mode_show($node) {
+  $view_modes = field_view_mode_settings('node', $node->type);
+  $output = array();
+  foreach ($view_modes as $view_mode => $settings) {
+    if (empty($settings['custom_settings'])) {
+      continue;
+    }
+    $output[$view_mode] = array(
+      '#type' => 'container',
+      '#attributes' => array(
+        'class' => array(
+          'view-mode-preview',
+          'view-mode-' . str_replace('_', '-', $view_mode),
+        ),
+      ),
+      'title' => array(
+        '#type' => 'html_tag',
+        '#tag' => 'h2',
+        '#value' => $view_mode,
+      ),
+      'output' => node_view($node, $view_mode),
+      'clear_both' => array(
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' => '&nbsp;',
+        '#attributes' => array(
+          'style' => 'clear: both;',
+        ),
+      ),
+    );
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function viewmodes_preview_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'viewmodes_preview') . '/includes/views',
+  );
+}
