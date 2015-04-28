@@ -13,7 +13,7 @@ function viewmodes_preview_menu() {
     'description' => 'Show a page with all active view modes for a given node.',
     'page callback' => '_viewmodes_preview_view_mode_show',
     'page arguments' => array(1),
-    'access arguments' => array('administer content types'),
+    'access arguments' => array('access viewmodes preview'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -70,5 +70,16 @@ function viewmodes_preview_views_api() {
   return array(
     'api' => 3,
     'path' => drupal_get_path('module', 'viewmodes_preview') . '/includes/views',
+  );
+}
+
+/**
+ * Implements hook_permission().
+ */
+function viewmodes_preview_permission() {
+  return array(
+    'access viewmodes preview' => array(
+      'title' => t('Access viewmodes preview.'),
+    )
   );
 }
