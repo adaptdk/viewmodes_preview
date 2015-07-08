@@ -55,6 +55,7 @@ function _viewmodes_preview_view_mode_show($node, $selected_viewmode = '') {
   if (!empty($selected_viewmode)) {
     $view_modes = array_intersect_key($view_modes, drupal_map_assoc(array($selected_viewmode)));
   }
+  $entity_info_node = entity_get_info('node');
   $output = array();
   foreach ($view_modes as $view_mode => $settings) {
     if (empty($settings['custom_settings'])) {
@@ -71,7 +72,7 @@ function _viewmodes_preview_view_mode_show($node, $selected_viewmode = '') {
       'title' => array(
         '#type' => 'html_tag',
         '#tag' => 'h2',
-        '#value' => $view_mode,
+        '#value' => $entity_info_node['view modes'][$view_mode]['label'],
       ),
       'output' => node_view($node, $view_mode),
       'clear_both' => array(
