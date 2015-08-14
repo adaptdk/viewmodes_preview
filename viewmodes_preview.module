@@ -16,14 +16,6 @@ function viewmodes_preview_menu() {
     'access arguments' => array('access viewmodes preview'),
     'type' => MENU_LOCAL_TASK,
   );
-  $items['node/%node/viewmodes-preview/%'] = array(
-    'title' => 'View modes',
-    'description' => 'Show a page with one view mode for a given node.',
-    'page callback' => '_viewmodes_preview_view_mode_show',
-    'page arguments' => array(1, 3),
-    'access arguments' => array('access viewmodes preview'),
-    'type' => MENU_LOCAL_TASK,
-  );
 
   return $items;
 }
@@ -50,9 +42,9 @@ function viewmodes_preview_menu() {
  * @return array
  *   Render array demoing the different view modes.
  */
-function _viewmodes_preview_view_mode_show($node, $selected_viewmode = '') {
+function _viewmodes_preview_view_mode_show($node, $selected_viewmode = FALSE) {
   $view_modes = field_view_mode_settings('node', $node->type);
-  if (!empty($selected_viewmode)) {
+  if ($selected_viewmode) {
     $view_modes = array_intersect_key($view_modes, drupal_map_assoc(array($selected_viewmode)));
   }
   $entity_info_node = entity_get_info('node');
